@@ -13,9 +13,6 @@ const Navbar = () => (
             <a className="nav-link" href="/">Reset <span className="sr-only"></span></a>
           </li>
         </ul>
-        <span className="navbar-text">
-          Score:  |  Top Score:
-        </span>
       </div>
     </nav>
   </div>

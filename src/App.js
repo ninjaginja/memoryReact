@@ -1,16 +1,19 @@
 import React from "react";
 import ImageCard from "./components/ImageCard";
 import Wrapper from "./components/Wrapper";
+import Navbar from "./components/Navbar";
 import patterns from "./patterns.json";
+import "./App.css";
 
 let currentScore = 0;
 let bestScore = 0;
-let clickMessage = "Click on an image to earn points, but don't click on any of them more than once!";
+let clickMessage = "Click on an image to earn points, but don't click on any of the patterns more than once!";
 
 class App extends React.Component {
 
   state = {
     patterns,
+    currentScore,
     bestScore,
     clickMessage
   };
@@ -23,23 +26,20 @@ class App extends React.Component {
         // Filter for the clicked pattern
         const clickedPattern = patterns.filter(pattern => pattern.id === id);
 
-        // If the patterned image's clicked value is already true,
+        // If the pattern's clicked value is already true,
         // do the game over actions
         if (clickedPattern[0].clicked){
 
-            console.log ("Correct Guesses: " + currentScore);
-            console.log ("Best Score: " + bestScore);
-
             currentScore = 0;
-            clickMessage = "Dang! You already clicked on that one! Now you have to start over!"
+            clickMessage = "Uh-Oh! You already clicked on that one! Try Again!";
 
-            for (let i = 0 ; i < patterns.length ; i++){
-                patterns[i].clicked = false;
-            }
+            patterns.forEach((element) => {
+              element.clicked = false;
+            });
 
-            this.setState({clickMessage});
+            this.setState({ clickMessage });
             this.setState({ currentScore });
-            this.setState({patterns});
+            this.setState({ patterns });
 
         // Otherwise, if clicked = false, and the user hasn't finished
         } else if (currentScore < 11) {
@@ -50,7 +50,7 @@ class App extends React.Component {
             // increment the appropriate counter
             currentScore++;
 
-            clickMessage = "Great! You haven't click on that one yet! Keep going!";
+            clickMessage = "Correct! Keep Going!";
 
             if (currentScore > bestScore){
                 bestScore = currentScore;
@@ -58,7 +58,7 @@ class App extends React.Component {
             }
 
             // Shuffle the array to be rendered in a random order
-            patterns.sort(function(a, b){return 0.5 - Math.random()});
+            patterns.sort((a,b) => {return 0.5 - Math.random()});
 
             // Set this.state.patterns equal to the new patterns array
             this.setState({ patterns });
@@ -73,16 +73,16 @@ class App extends React.Component {
             currentScore = 0;
 
             // Egg on the user to play again
-            clickMessage = "WOW!!! You got ALL of them!!! Now, let's see if you can do it again!";
+            clickMessage = "Nice Work!!! You got ALL of them!!! Dare you to try again!";
             bestScore = 12;
             this.setState({ bestScore });
 
-            for (let i = 0 ; i < patterns.length ; i++){
-                patterns[i].clicked = false;
-            }
+            patterns.forEach((element) => {
+              element.clicked = false;
+            });
 
             // Shuffle the array to be rendered in a random order
-            patterns.sort(function(a, b){return 0.5 - Math.random()});
+            patterns.sort((a,b) => {return 0.5 - Math.random()});
 
             // Set this.state.patterns equal to the new patterns array
             this.setState({ patterns });
@@ -94,19 +94,34 @@ class App extends React.Component {
 
   render() {
     return (
-    <Wrapper>
-      {this.state.patterns.map(pattern => {
-        return (
-          <ImageCard
-            key={pattern.id}
-            id={pattern.id}
-            name={pattern.name}
-            image={pattern.image}
-            setClicked={this.setClicked}
-          />
-        );
-      })}
-    </Wrapper>
+    <div>
+      <Navbar />
+
+      <div className="gameMessage">
+        <h3 className="scoreSummary">
+            {this.state.clickMessage}
+        </h3>
+        <h3 className="scoreSummary">
+            Correct Guesses: {this.state.currentScore}
+            <br />
+            Best Score: {this.state.bestScore}
+        </h3>
+      </div>
+
+      <Wrapper>
+        {this.state.patterns.map(pattern => {
+          return (
+            <ImageCard
+              key={pattern.id}
+              id={pattern.id}
+              name={pattern.name}
+              image={pattern.image}
+              setClicked={this.setClicked}
+            />
+          );
+        })}
+      </Wrapper>
+    </div>
     );
   }
 }
