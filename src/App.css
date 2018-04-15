@@ -1,5 +1,15 @@
+.gameMessage {
+  text-align: center;
+  font-family: 'Inconsolata', monospace;
+}
+
 .scoreSummary {
   width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Inconsolata', monospace;
+}
+
+.instructions {
+  font-family: 'Inconsolata', monospace;
+  font-size: 18px;
 }

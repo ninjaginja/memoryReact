@@ -3,6 +3,12 @@
   color: #ffffff !important;
 }
 
-.nav-link {
+.navbar-text > a {
   color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+#navbarText {
+  display: flex !important;
+  justify-content: flex-end !important;
 }

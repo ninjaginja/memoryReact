@@ -7,7 +7,7 @@ import "./App.css";
 
 let currentScore = 0;
 let bestScore = 0;
-let clickMessage = "Click on an image to earn points, but don't click on any of the patterns more than once!";
+let clickMessage = "Click on any image to earn points, but careful not to click on any more than once!";
 
 class App extends React.Component {
 
@@ -31,7 +31,7 @@ class App extends React.Component {
         if (clickedPattern[0].clicked){
 
             currentScore = 0;
-            clickMessage = "Uh-Oh! You already clicked on that one! Try Again!";
+            clickMessage = "Uh-Oh! You already clicked on that one! Click any image to start a new Game.";
 
             patterns.forEach((element) => {
               element.clicked = false;
@@ -58,7 +58,9 @@ class App extends React.Component {
             }
 
             // Shuffle the array to be rendered in a random order
-            patterns.sort((a,b) => {return 0.5 - Math.random()});
+            patterns.sort((a,b) => {
+              return 0.5 - Math.random()
+            });
 
             // Set this.state.patterns equal to the new patterns array
             this.setState({ patterns });
@@ -82,7 +84,9 @@ class App extends React.Component {
             });
 
             // Shuffle the array to be rendered in a random order
-            patterns.sort((a,b) => {return 0.5 - Math.random()});
+            patterns.sort((a,b) => {
+              return 0.5 - Math.random()
+            });
 
             // Set this.state.patterns equal to the new patterns array
             this.setState({ patterns });
@@ -98,14 +102,16 @@ class App extends React.Component {
       <Navbar />
 
       <div className="gameMessage">
-        <h3 className="scoreSummary">
+        <div className="scoreSummary">
+          <h3>
+              Correct Guesses: {this.state.currentScore}
+              <br />
+              Best Score: {this.state.bestScore}
+          </h3>
+        </div>
+        <p className="instructions">
             {this.state.clickMessage}
-        </h3>
-        <h3 className="scoreSummary">
-            Correct Guesses: {this.state.currentScore}
-            <br />
-            Best Score: {this.state.bestScore}
-        </h3>
+        </p>
       </div>
 
       <Wrapper>
