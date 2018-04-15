@@ -20,7 +20,6 @@ class App extends React.Component {
 
   setClicked = id => {
 
-        // Make a copy of the state patterns array to work with
         const patterns = this.state.patterns;
 
         // Filter for the clicked pattern
@@ -74,7 +73,7 @@ class App extends React.Component {
             // restart the guess counter
             currentScore = 0;
 
-            // Egg on the user to play again
+            // Ask user to play again
             clickMessage = "Nice Work!!! You got ALL of them!!! Dare you to try again!";
             bestScore = 12;
             this.setState({ bestScore });
